@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.utils import timezone
 from ckeditor.fields import RichTextField
 from mptt.models import MPTTModel, TreeForeignKey
 

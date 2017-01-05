@@ -20,14 +20,20 @@ class RegulationsListView(ListView):
     template_name = 'Regulations_list.html'
     context_object_name = 'RegulationsList'
 
-    # Фильтруем по галке публикации
-    queryset = Regulations.get_published.filter(published=True)
+    # Фильтруем по галке публикации и фильтруем по времени публикации
+    queryset = Regulations.get_published.filter(published=True).filter(datetime__lte=timezone.now())
+
+    # Пробуем вытащить текст из категории
+    def get_context_data(self, **kwargs):
+        context = super(RegulationsListView, self).get_context_data(**kwargs)
+        context['category'] = Category.get_published.get(slug=self.kwargs['category'])
+        # context['title'] = self.queryset.filter(title=self.kwargs['category'])
+        return context
 
     # Связывает категорию и документ в url
-    # Также фильтруем по времени публикации1
     def get_queryset(self):
         category_parent = Category.get_published.get(slug=self.kwargs['category'])
-        queryset = self.queryset.filter(category_parent_id=category_parent.id).filter(datetime__lte = timezone.now())
+        queryset = self.queryset.filter(category_parent_id=category_parent.id)
         return queryset
 
 
@@ -37,7 +43,7 @@ class RegulationsDetailView(DetailView):
     context_object_name = 'regulations'
 
     # Фильтруем по галке публикации
-    queryset = Regulations.get_published.filter(published=True)
+    queryset = Regulations.get_published.filter(published=True).filter(datetime__lte=timezone.now())
 
     # Отвечает за вывод данных
     def get_context_data(self, **kwargs):
@@ -48,7 +54,7 @@ class RegulationsDetailView(DetailView):
     # Также фильтруем по времени публикации
     def get_queryset(self):
         category_parent = Category.get_published.get(slug=self.kwargs['category'])
-        queryset = self.queryset.filter(category_parent_id=category_parent.id).filter(datetime__lte = timezone.now())
+        queryset = self.queryset.filter(category_parent_id=category_parent.id)
         return queryset
 
 

@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>1</title>
+    <title>{{ category.title }}</title>
 </head>
 <body>
-    <h1>Articles list:</h1>
-    <p>{{ RegulationsList.get_text }}123</p>
+    <h1>Заголовок:{{ category.title }}</h1>
+    <p>Время:{{ category.datetime }}</p>
+    <p>Текст:{{ category.text }}</p>
     <ul>
     {% for regulations in RegulationsList %}
         <li>{{ regulations.datetime|date }} - <a href="{{ regulations.slug }}/">{{ regulations.title }}</a></li>

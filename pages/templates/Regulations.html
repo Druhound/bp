@@ -7,11 +7,11 @@
 <body>
 Нормативные документы
 {% block content %}
-    <p>{{ regulations.datetime }}</p>
-    <h2>{{ regulations.title }}</h2>
-    <p>{{ regulations.category_parent }}</p>
-    <p>{{ regulations.text }}</p>
-    <p>{{ regulations.file }}</p>
+    <h1>Заголовок:{{ regulations.title }}</h1>
+    <p>Время:{{ regulations.datetime }}</p>
+    <p>Категория{{ regulations.category_parent }}</p>
+    <p>Текст:{{ regulations.text }}</p>
+    <p>Файл:{{ regulations.file }}</p>
 {% endblock %}
 <a href="/normativnye_dokumenty/{{ regulations.category_parent.slug }}">Вернуться назад</a>
 </body>
