@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1</title>
+</head>
+<body>
+    <h1>Articles list:</h1>
+    <p>{{ RegulationsList.get_text }}123</p>
+    <ul>
+    {% for regulations in RegulationsList %}
+        <li>{{ regulations.datetime|date }} - <a href="{{ regulations.slug }}/">{{ regulations.title }}</a></li>
+    {% empty %}
+        <li>No articles yet.</li>
+    {% endfor %}
+    </ul>
+
+<a href="/normativnye_dokumenty/">Вернуться назад</a>
+
+</body>
+</html>

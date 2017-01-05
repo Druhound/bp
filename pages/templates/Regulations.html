@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ object.headline }}</title>
+</head>
+<body>
+Нормативные документы
+{% block content %}
+    <p>{{ regulations.datetime }}</p>
+    <h2>{{ regulations.title }}</h2>
+    <p>{{ regulations.category_parent }}</p>
+    <p>{{ regulations.text }}</p>
+    <p>{{ regulations.file }}</p>
+{% endblock %}
+<a href="/normativnye_dokumenty/{{ regulations.category_parent.slug }}">Вернуться назад</a>
+</body>
+</html>
