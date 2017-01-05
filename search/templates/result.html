@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="{% url "result" %}" method="GET">
+    <input type="text" name="search" />
+    <button type="submit">search</button>
+</form>
+<h1>Places</h1>
+<ul>
+{% for regulations in List %}
+    <li><a href="/{{ regulations.slug }}/">{{ regulations.title }}</a></li>
+{% endfor %}
+</ul>
+</body>
+</html>
