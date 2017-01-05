@@ -13,6 +13,15 @@
     <p>Текст:{{ regulations.text }}</p>
     <p>Файл:{{ regulations.file }}</p>
 {% endblock %}
+
+{{ TopicList }}
+    <ul>
+    {% for category in TopicList %}
+        <li>{{ category.datetime|date }} - <a href="{{ category.slug }}/">{{ category.title }}</a></li>
+    {% empty %}
+        <li>No articles yet.</li>
+    {% endfor %}
+    </ul>
 <a href="/normativnye_dokumenty/{{ regulations.category_parent.slug }}">Вернуться назад</a>
 </body>
 </html>

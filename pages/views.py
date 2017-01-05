@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.utils import timezone
+import random
+
 from pages.models import Document, Regulations, Category
 from django.views.generic import ListView, DetailView
 
@@ -19,22 +21,20 @@ class AllCategoryRegulationsListView(ListView):
 class RegulationsListView(ListView):
     template_name = 'Regulations_list.html'
     context_object_name = 'RegulationsList'
+    queryset = Regulations.get_published.all()
 
-    # Фильтруем по галке публикации и фильтруем по времени публикации
-    queryset = Regulations.get_published.filter(published=True).filter(datetime__lte=timezone.now())
-
-    # Пробуем вытащить текст из категории
+    # Отвечает за вывод данных
     def get_context_data(self, **kwargs):
         context = super(RegulationsListView, self).get_context_data(**kwargs)
-        # Фильтруем категории по url(category) и вытаскиваем атрибуты
+        # Фильтруем категории по url(category) и вытаскиваем атрибуты (Мне этот способ не нравится)
         context['category'] = Category.get_published.get(slug=self.kwargs['category'])
         return context
 
     # Список документов
     def get_queryset(self):
-        # Фильтруем документы по категории
+        # Фильтруем документы по категории, по галке публикации, по дате публикации
         category_parent = Category.get_published.get(slug=self.kwargs['category'])
-        queryset = self.queryset.filter(category_parent_id=category_parent.id)
+        queryset = self.queryset.filter(published=True).filter(datetime__lte=timezone.now()).filter(category_parent_id=category_parent.id)
         return queryset
 
 
@@ -42,20 +42,20 @@ class RegulationsListView(ListView):
 class RegulationsDetailView(DetailView):
     template_name = 'Regulations.html'
     context_object_name = 'regulations'
+    queryset = Regulations.get_published.all()
 
-    # Фильтруем по галке публикации
-    queryset = Regulations.get_published.filter(published=True).filter(datetime__lte=timezone.now())
-
-    # Отвечает за вывод данных
     def get_context_data(self, **kwargs):
         context = super(RegulationsDetailView, self).get_context_data(**kwargs)
+        # Cписок избранных категорий (Псевдорандом путем выборки рандомного индекса и отсчиыванием после него 4 элемента)
+        slice = random.random() * (Category.get_published.all().count() - 2)
+        context['TopicList'] = Category.get_published.all()[slice: slice + 4]
         return context
 
     # Список документов
     def get_queryset(self):
-        # Фильтруем документы по категории
+        # Фильтруем документы по категории, по галке публикации, по дате публикации
         category_parent = Category.get_published.get(slug=self.kwargs['category'])
-        queryset = self.queryset.filter(category_parent_id=category_parent.id)
+        queryset = self.queryset.filter(published=True).filter(datetime__lte=timezone.now()).filter(category_parent_id=category_parent.id)
         return queryset
 
 

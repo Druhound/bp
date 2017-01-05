@@ -69,10 +69,6 @@ class Regulations(Page):
     def __unicode__(self):
         return self.title
 
-    # def published(self):
-    #     now = timezone.now()
-    #     return now - datetime.timedelta(days=1) <= self.pub_date <= now
-
     class Meta:
         verbose_name = 'Нормативные документы'
         verbose_name_plural = 'Нормативные документы'
