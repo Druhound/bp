@@ -5,3 +5,4 @@
 - django-mptt-admin
 - django-ckeditor
 - django-haystack
+- Whoosh
