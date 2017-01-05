@@ -6,10 +6,14 @@
 </head>
 <body>
 
-<form action="{% url "result" %}" method="GET">
-    <input type="text" name="search" />
+<form action="{% url "search" %}" method="GET">
+    <input type="text" name="searchв на" />
     <button type="submit">search</button>
 </form>
+
+<!--> Сюда можно включить шаблон с результатами через include
+      Или выделить для него отдельный блок <-->
+{% include "result.html" %}
 
 </body>
 </html>

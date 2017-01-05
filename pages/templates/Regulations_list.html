@@ -9,8 +9,8 @@
     <p>Время:{{ category.datetime }}</p>
     <p>Текст:{{ category.text }}</p>
     <ul>
-    {% for regulations in RegulationsList %}
-        <li>{{ regulations.datetime|date }} - <a href="{{ regulations.slug }}/">{{ regulations.title }}</a></li>
+    {% for Category in CategoryList %}
+        <li>{{ Category.datetime|date }} - <a href="{{ Category.get_absolute_url }}">{{ Category.title }}</a></li>
     {% empty %}
         <li>No articles yet.</li>
     {% endfor %}

@@ -17,7 +17,7 @@
 {{ TopicList }}
     <ul>
     {% for category in TopicList %}
-        <li>{{ category.datetime|date }} - <a href="{{ category.slug }}/">{{ category.title }}</a></li>
+        <li>{{ category.datetime|date }} - <a href="{{ category.get_absolute_url }}/">{{ category.title }}</a></li>
     {% empty %}
         <li>No articles yet.</li>
     {% endfor %}

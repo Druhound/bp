@@ -5,15 +5,13 @@
     <title>Title</title>
 </head>
 <body>
-<form action="{% url "result" %}" method="GET">
-    <input type="text" name="search" />
-    <button type="submit">search</button>
-</form>
-<h1>Результат:</h1>
-<ul>
-{% for regulations in List %}
-    <li><a href="/{{ regulations.slug }}/">{{ regulations.title }}</a></li>
-{% endfor %}
-</ul>
+{% if List %}
+    <h1>Результат:</h1>
+    <ul>
+        {% for regulations in List %}
+            <li><a href="/{{ regulations.slug }}/">{{ regulations.title }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 </body>
 </html>

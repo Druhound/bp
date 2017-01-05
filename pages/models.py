@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.core.urlresolvers import reverse
 from ckeditor.fields import RichTextField
 from mptt.models import MPTTModel, TreeForeignKey
 
@@ -57,6 +58,12 @@ class Category(Page):
     def __unicode__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('pages:RListView', args=[str(self.slug)])
+
+    def get_url(self):
+        return '%s' % self.slug
+
     class Meta:
         verbose_name = 'Категории нормативных документов'
         verbose_name_plural = 'Категории нормативных документов'
@@ -68,6 +75,10 @@ class Regulations(Page):
 
     def __unicode__(self):
         return self.title
+
+    def get_absolute_url(self):
+        category = Category.get_url(self.category_parent)
+        return reverse('pages:RDetailView', kwargs={'category': category, 'slug': self.slug})
 
     class Meta:
         verbose_name = 'Нормативные документы'

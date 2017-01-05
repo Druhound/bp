@@ -4,6 +4,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^search/', include('search.urls')),
-    url(r'^', include('pages.urls')),
+    url(r'^search/', include('haystack.urls')),
+    url(r'^normativnye_dokumenty/', include('pages.urls', namespace='pages')),
 ]

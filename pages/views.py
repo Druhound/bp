@@ -10,7 +10,7 @@ from django.views.generic import ListView, DetailView
 class AllCategoryRegulationsListView(ListView):
     model = Category
     template_name = 'Regulations_list.html'
-    context_object_name = 'RegulationsList'
+    context_object_name = 'CategoryList'
 
     def get_context_data(self, **kwargs):
         context = super(AllCategoryRegulationsListView, self).get_context_data(**kwargs)
@@ -19,8 +19,9 @@ class AllCategoryRegulationsListView(ListView):
 
 # Просмотр списка нормативных документов
 class RegulationsListView(ListView):
+    model = Category
     template_name = 'Regulations_list.html'
-    context_object_name = 'RegulationsList'
+    context_object_name = 'CategoryList'
     queryset = Regulations.get_published.all()
 
     # Отвечает за вывод данных

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'mptt',
     'django_mptt_admin',
     'ckeditor',
+    'haystack',
 
     'pages',
     'search',
@@ -144,7 +145,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -160,12 +161,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+WHOOSH_INDEX_DIR = 'whoosh_index'
 
-#Email
-
-
-EMAIL_TEMPLATES = {
-    'feedback_to_admin': 'feedback_to_admin',
-    'feedback_to_user': 'feedback_to_user',
-    'callback_to_admin': 'callback_to_admin',
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+    },
 }
