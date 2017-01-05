@@ -26,12 +26,13 @@ class RegulationsListView(ListView):
     # Пробуем вытащить текст из категории
     def get_context_data(self, **kwargs):
         context = super(RegulationsListView, self).get_context_data(**kwargs)
+        # Фильтруем категории по url(category) и вытаскиваем атрибуты
         context['category'] = Category.get_published.get(slug=self.kwargs['category'])
-        # context['title'] = self.queryset.filter(title=self.kwargs['category'])
         return context
 
-    # Связывает категорию и документ в url
+    # Список документов
     def get_queryset(self):
+        # Фильтруем документы по категории
         category_parent = Category.get_published.get(slug=self.kwargs['category'])
         queryset = self.queryset.filter(category_parent_id=category_parent.id)
         return queryset
@@ -50,9 +51,9 @@ class RegulationsDetailView(DetailView):
         context = super(RegulationsDetailView, self).get_context_data(**kwargs)
         return context
 
-    # Связывает категорию и документ в url (Почему мы это делаем в queryset я хз)
-    # Также фильтруем по времени публикации
+    # Список документов
     def get_queryset(self):
+        # Фильтруем документы по категории
         category_parent = Category.get_published.get(slug=self.kwargs['category'])
         queryset = self.queryset.filter(category_parent_id=category_parent.id)
         return queryset
