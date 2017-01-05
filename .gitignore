@@ -120,3 +120,5 @@ ENV/
 Будет удалено .idea/dataSources.xml
 Будет удалено .idea/sqldialects.xml
 
+/.idea/sqldialects.xml
+/.idea/dataSources.xml
