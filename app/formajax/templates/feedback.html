@@ -1,0 +1,36 @@
+{% load static %}
+<script src="{% static 'feedback/jquery-3.1.1.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'feedback/main.css' %}"/>
+<script src="{% static 'feedajax/js/query-main.js' %}"></script>
+
+<div id="feedback_drop" class="hiding"></div>
+<div id="feedback_popup">
+    <form class="feedback" action="{{ request.path }}" method="POST">
+        <h4>Enter your feedback"</h4>
+        {% csrf_token %}
+        <div class="email error"> </div>
+        <label for="email">email (optional)</label>
+            <input name="email" class="emailinput"/>
+        <div class="subject error"> </div>
+        <label for="subject">Тема сообещния (optional)</label>
+            <input name="subject" class="subjectinput"/>
+        <div class="text error"> </div>
+        <label for="text">message</label>
+            <textarea name="text" class="messageinput"></textarea>
+        <div class="buttons">
+            <button class="feedback_submit_button">Send</button>
+        </div>
+    </form>
+    <div class="thanks hiding">Thank you for your feedback!</div>
+    <div class="close"></div>
+</div>
+
+<script>
+    $(function(){
+        feedback.init({
+            'button':$('.feedback_button'),
+            'drop':$('#feedback_drop'),
+            'popup':$('#feedback_popup')
+        });
+    });
+</script>
