@@ -11,6 +11,69 @@
     display:none;
 }
 
+.pp_new {
+    background: rgba(255,255,255,0.9) !important;
+    border: 4px solid #1eaae8;
+    width: 770px !important;
+    height: 529px;
+	text-align:center;
+}
+.title_pp_form {
+    font-family: 'robotomedium';
+    color:  #454545;
+    font-weight: normal;
+    font-size: 27px;
+    text-align: center;
+    padding-top: 23px;
+	margin-bottom: 8px;
+}
+.pp_new input {
+    width: 400px!important;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+	color:  #454545!important;
+    font-family: 'robotolight';
+    height: 45px;
+    margin-top: 32px;
+    text-transform: uppercase;
+    font-size: 18px;
+}
+.pp_new textarea {
+    min-height: 70px;
+    width: 400px!important;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    color:  #454545!important;
+    font-family: 'robotolight';
+    height: 45px;
+    margin-top: 37px;
+    text-transform: uppercase;
+    font-size: 18px;
+}
+.pp_new .buttons {
+    margin-top: 43px !important;
+}
+.pp_new label{
+display: none!important;
+}
+.pp_new .feedback_submit_button {
+    border: 3px solid #1eaae8;
+    background: transparent;
+    color: #1eaae8;
+    padding: 7px 30px;
+    font-family: 'robotomedium' !important;
+    font-size: 25px !important;
+    text-align: center;
+    margin: 0 auto !important;
+    display: block;
+}
+.pp_new .feedback_submit_button:hover {
+color:#fff;
+background:#1eaae8;
+}
+
 #feedback_button_style.white {
     background-color:#AAA;
     border:1px solid #999;
@@ -85,18 +148,15 @@ div.hiding {
 }
 
 #feedback_popup {
-    width:250px;
-    min-height:210px;
-    position:absolute;
-    left:0px;
-    right:0px;
-    margin:auto;
-    background-color:white;
-    -webkit-border-radius:10px;
-    -moz-border-radius:10px;
-    border-radius:10px;
-    overflow:visible;
+    width: 370px;
+    min-height: 210px;
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    margin: 0 auto;
+    background-color: #fff;
     z-index: 10001;
+    top: 15%;
 }
 
 #feedback_popup.thanks {
@@ -110,22 +170,22 @@ div.hiding {
     display:none;
 }
 
-#feedback_popup.thanks .thanks {
+#feedback_popup.thanks .thanks{
     display:block;
 }
 
-#feedback_popup.thanks form {
+#feedback_popup.thanks form{
     display:none;
 }
 
-#feedback_popup form {
+#feedback_popup form{
     height:100%;
     left:10px;
     right:10px;
     padding:10px;
 }
 
-#feedback_popup .error {
+#feedback_popup .error{
     background-color:red;
 }
 
@@ -154,4 +214,12 @@ div.hiding {
 
 #feedback_popup input {
     width:223px;
+}
+.telephone.error {
+    width: 100%;
+    float: left;
+    text-align: start;
+    margin: 0;
+    height: auto;
+    font-size: 1em;
 }

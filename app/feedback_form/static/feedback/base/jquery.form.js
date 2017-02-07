@@ -8,8 +8,8 @@ $.fn.ajaxSubmit = function(options) {
         'onend':function(){}
     };
     options = jQuery.extend(defaults, options);
-    url = this.action;
-    this.action = null;
+    // url = this.action;
+    // this.action = null;
     this.onsubmit = function(){return false;};
     this.submit(function(e){
         e.preventDefault();

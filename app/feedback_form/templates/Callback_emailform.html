@@ -1,28 +1,32 @@
 {% load static %}
-<script src="{% static 'feedback/jquery-3.1.1.min.js' %}"></script>
-<link rel="stylesheet" href="{% static 'feedback/main.css' %}"/>
-<script src="{% static 'feedback/jquery.form.js' %}"></script>
-<script src="{% static 'feedback/main.js' %}"></script>
+{% load i18n %}
 
-<div id="feedback_drop" class="hiding"></div>
-<div id="feedback_popup">
-    <form class="feedback" action="{{ request.path }}" method="POST">
-        <h4>Заказать звонок</h4>
+<script src="{% static 'feedback/base/jquery-3.1.1.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'feedback/base/main.css' %}"/>
+<script src="{% static 'feedback/base/jquery.form.js' %}"></script>
+<script src="{% static 'feedback/base/main.js' %}"></script>
+
+<div id="feedback_drop2" class="feedback_drop2 hiding"></div>
+<div id="feedback_popup2" class="feedback_popup">
+    <form class="feedback" action="/feedback/ajax1{{ request.path }}" method="POST">
+        <h4>{% if form.title %}{{ form.title }}{% else %}Фидбек{% endif %}</h4>
         {% csrf_token %}
+        <input for="title" name="title" disabled value="{{ regulations.title }}">
         <div class="name error"> </div>
-        <label for="name">Имя</label>
+        <label for="name">email (optional)</label>
             <input name="name" class="emailinput"/>
         <div class="telephone error"> </div>
-        <label for="telephone">Телефон</label>
+        <label for="telephone">subject (optional)</label>
             <input name="telephone" class="subjectinput"/>
         <div class="text error"> </div>
-        <label for="text">Комментарий</label>
+        <label for="text">message</label>
             <textarea name="text" class="messageinput"></textarea>
+        <input name="age" class="age"/>
         <div class="buttons">
-            <button class="feedback_submit_button">Заказать</button>
+            <button class="feedback_submit_button">Send</button>
         </div>
     </form>
-    <div class="thanks hiding">Спасибо!</div>
+    <div class="thanks hiding">Thank you for your feedback!</div>
     <div class="close"></div>
 </div>
 
@@ -30,8 +34,8 @@
     $(function(){
         feedback.init({
             'button':$('.feedback_button'),
-            'drop':$('#feedback_drop'),
-            'popup':$('#feedback_popup')
+            'drop':$('#feedback_drop2'),
+            'popup':$('#feedback_popup2')
         });
     });
 </script>

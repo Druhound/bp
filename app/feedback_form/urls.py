@@ -1,7 +1,9 @@
 from django.conf.urls import url
 
-from app.feedback_form.views import FeedbackCreateView
-
+from app.feedback_form.views import FeedbackCreateView, CallbackCreateView
+from . import views
 urlpatterns = [
-    url(r'^ajax/(?P<url>.*)$', FeedbackCreateView.as_view(), name='feedback'),
+    url(r'^ajax1/(?P<url>.*)$', FeedbackCreateView.as_view(), name='feedback'),
+    url(r'^ajax2/(?P<url>.*)$', CallbackCreateView.as_view(), name='feedback'),
+    url(r'^2ajax/(?P<url>.*)$', views.send_email, name='feed'),
 ]
