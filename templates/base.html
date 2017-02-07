@@ -1,12 +1,16 @@
- <html>
+{% load thumbnail %}
+<html>
  <head>
- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
- <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+<title></title>
  </head>
 
  <body>
 {% block content %}
- {% endblock %}
-
+    <p></p><a href="{% url 'pages:index' %}">Нормативные документы</a></p>
+    <p><a href="{% url 'search:haystack_search' %}">Поиск</a></p>
+    <p><a href="{% url 'slider:index' %}">Слайдер</a></p>
+    <p><a href="{% url 'form:feedback' '' %}">Форма обратной связи - 1</a></p>
+    <p><a href="{% url 'form:feed' '' %}">Форма обратной связи - 2</a></p>
+{% endblock %}
 </body>
 </html>

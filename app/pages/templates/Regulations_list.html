@@ -3,8 +3,9 @@
     <p>Время:{{ category.datetime }}</p>
     <p>Текст:{{ category.text }}</p>
     <ul>
-    {% for Category in CategoryList %}
-        <li>{{ Category.datetime|date }} - <a href="{{ Category.get_absolute_url }}">{{ Category.title }}</a></li>
+    {% for item in category_list %}
+        <li>{{ item.datetime|date }} -
+            <a href="{{ item.get_absolute_url }}">{{ item.title }}</a></li>
     {% empty %}
         <li>No articles yet.</li>
     {% endfor %}
