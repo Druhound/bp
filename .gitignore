@@ -91,35 +91,8 @@ ENV/
 # Rope project settings
 .ropeproject
 
-Будет удалено .gitignore
-Будет удалено .idea/
-Будет удалено .idea/bp.iml
-Будет удалено .idea/inspectionProfiles/
-Будет удалено .idea/misc.xml
-Будет удалено .idea/modules.xml
-Будет удалено .idea/workspace.xml
-Будет удалено bp/__init__.pyc
-Будет удалено bp/settings.pyc
-Будет удалено bp/urls.pyc
-Будет удалено bp/wsgi.pyc
-Будет удалено pages/__init__.pyc
-Будет удалено pages/admin.pyc
-Будет удалено pages/migrations/0001_initial.pyc
-Будет удалено pages/migrations/0002_auto_20170102_2322.pyc
-Будет удалено pages/migrations/__init__.pyc
-Будет удалено pages/models.pyc
-Будет удалено pages/urls.pyc
-Будет удалено pages/views.pyc
-Будет удалено .idea/dataSources.local.xml
-Будет удалено .idea/dataSources/
-Будет удалено .idea/dictionaries/
-Будет удалено .idea/vcs.xml
-Будет удалено bp/whoosh_index/
-Будет удалено pages/migrations/0003_auto_20170105_2322.py
-Будет удалено templates/Pages/
-Будет удалено .idea/dataSources.xml
-Будет удалено .idea/sqldialects.xml
-
 /.idea/sqldialects.xml
 /.idea/dataSources.xml
-/files/
+/files/media
+
+migrations

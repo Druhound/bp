@@ -3,6 +3,8 @@ import random
 
 from django.utils import timezone
 from django.views.generic import ListView, DetailView
+from meta.views import MetadataMixin
+
 
 from app.pages.models import Document, Regulations, Category
 
@@ -10,20 +12,19 @@ from app.pages.models import Document, Regulations, Category
 # Просмотр списка всех категорий нормативных документов
 class AllCategoryRegulationsListView(ListView):
     model = Category
-    template_name = 'Regulations_list.html'
+    template_name = 'pages/Regulations_list.html'
     context_object_name = 'category_list'
     queryset = Category.get_published.filter(datetime__lte=timezone.now())
 
     def get_context_data(self, **kwargs):
         context = super(AllCategoryRegulationsListView, self).get_context_data(**kwargs)
-
         return context
 
 
 # Просмотр списка нормативных документов
 class RegulationsListView(ListView):
     model = Category
-    template_name = 'Regulations_list.html'
+    template_name = 'pages/Regulations_list.html'
     context_object_name = 'category_list'
 
     # Отвечает за вывод данных
@@ -44,8 +45,8 @@ class RegulationsListView(ListView):
 
 
 # Детальный просмотр нормативных документов через категории
-class RegulationsDetailView(DetailView):
-    template_name = 'Regulations.html'
+class RegulationsDetailView(MetadataMixin, DetailView):
+    template_name = 'pages/Regulations.html'
     context_object_name = 'regulations'
 
     def get_context_data(self, **kwargs):
@@ -54,6 +55,7 @@ class RegulationsDetailView(DetailView):
         slice = random.random() * (Category.get_published.all().count() - 2)
         context['topicList'] = Category.get_published.all()[slice: slice + 4]
         context['news_list'] = Regulations.get_published.filter(category_parent_id=2)[:2]
+        context['meta'] = self.get_object().as_meta(self.request)
         return context
 
     # Список документов которые доступны на сайте
@@ -69,7 +71,7 @@ class RegulationsDetailView(DetailView):
 # Детальный просмотр статьи через древовидную структуру
 class DocumentDetailView(DetailView):
     model = Document
-    template_name = 'Document.html'
+    template_name = 'pages/Document.html'
 
     def get_context_data(self, **kwargs):
         context = super(DocumentDetailView, self).get_context_data(**kwargs)

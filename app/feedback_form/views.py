@@ -26,7 +26,7 @@ SERVER_EMAIL = "seversait@yandex.ru"
 def send_email(request):
     if request.method != 'POST':
         form = EmailForm()
-        return render(request, 'Email.html', {'email_form': form, 'message': '!= POST'})
+        return render(request, 'feedback_form/Email.html', {'email_form': form, 'message': '!= POST'})
 
     form = EmailForm(request.POST, request.FILES)
     if form.has_error(form):
@@ -58,14 +58,13 @@ def send_mail_content(template_code, context):
 
 class CallbackCreateView(CreateView):
     form_class = CallbackForm
-    template_name = 'Callback_emailform.html'
+    template_name = 'feedback_form/Callback_emailform.html'
 
     def get_form_kwargs(self):
         kwargs = super(CallbackCreateView, self).get_form_kwargs()
         if 'data' in kwargs:
             post = kwargs['data'].copy()
             post['url'] = self.kwargs['url']
-            post['tutle'] = self.kwargs['title']
             kwargs['data'] = post
         return kwargs
 
@@ -95,25 +94,19 @@ class CallbackCreateView(CreateView):
 
 class FeedbackCreateView(CreateView):
     form_class = FeedbackForm
-    template_name = 'Callback_emailform_2.html'
+    template_name = 'feedback_form/Callback_emailform_2.html'
 
     def get_form_kwargs(self):
         kwargs = super(FeedbackCreateView, self).get_form_kwargs()
         if 'data' in kwargs:
-            print kwargs['data']
             post = kwargs['data'].copy()
             post['url'] = self.kwargs['url']
-            # post['title'] = self.kwargs['title']
             kwargs['data'] = post
         return kwargs
 
     # url, на который мы переходим после отправки
     def get_success_url(self):
         return self.kwargs['url']
-
-    # # пробуем вытащить title
-    # def get_prefix(self):
-    #     return self.kwargs['title']
 
     # Костыльный (пока что) метод отправки письма
     def form_valid(self, form):

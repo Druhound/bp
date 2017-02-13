@@ -27,13 +27,13 @@ INSTALLED_APPS = [
     'haystack',
     'sorl.thumbnail',
     'django_filters',
+    'meta',
 
     'app',
     'app.pages',
     'app.search',
     'app.feedback_form',
-    'app.slider',
-    'app.filter',
+    'metatag',
 ]
 
 MIDDLEWARE = [
@@ -123,10 +123,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LANGUAGE_CODE = 'ru-ru'
+LANGUAGES = 'ru'
 
 TIME_ZONE = 'UTC'
 
-USE_I18N = True
+# USE_I18N = True
 
 USE_L10N = True
 
@@ -134,10 +135,15 @@ USE_TZ = True
 
 DEFAULT = False
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'files', 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'files/static')
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'files/static'),
+)
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'files', 'media')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'files/media')
 MEDIA_URL = '/media/'
 
 # SEARCH
@@ -156,3 +162,6 @@ HAYSTACK_CONNECTIONS = {
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 FEEDBACK_EMAIL = "druhound51@gmail.com"
 SERVER_EMAIL = "seversait@yandex.ru"
+
+# META
+META_USE_TITLE_TAG = True

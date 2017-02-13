@@ -9,11 +9,10 @@ from views import IndexView
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^admin/', admin.site.urls),
-    url(r'^filter/', include('app.filter.urls', namespace='filter')),
-    url(r'^slider/', include('app.slider.urls', namespace='slider')),
     url(r'^search/', include('haystack.urls', namespace='search')),
     url(r'^normativnye_dokumenty/', include('app.pages.urls', namespace='pages')),
     url(r'^feedback/', include('app.feedback_form.urls', namespace='form')),
+    url(r'^meta/', include('metatag.urls', namespace='form')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += staticfiles_urlpatterns()

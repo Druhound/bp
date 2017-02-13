@@ -1,16 +1,21 @@
-{% load thumbnail %}
-<html>
- <head>
-<title></title>
- </head>
+{% load thumbnail static meta %}
 
- <body>
-{% block content %}
-    <p></p><a href="{% url 'pages:index' %}">Нормативные документы</a></p>
-    <p><a href="{% url 'search:haystack_search' %}">Поиск</a></p>
-    <p><a href="{% url 'slider:index' %}">Слайдер</a></p>
-    <p><a href="{% url 'form:feedback' '' %}">Форма обратной связи - 1</a></p>
-    <p><a href="{% url 'form:feed' '' %}">Форма обратной связи - 2</a></p>
-{% endblock %}
+<html>
+<head {% meta_namespaces %}>
+
+    {% include "meta/meta.html" %}
+    <script src="{% static 'jquery-3.1.1.min.js' %}"></script>
+    {% block extra %}
+    {% endblock %}
+</head>
+
+<body>
+    {% block content %}
+        <p><a href="{% url 'pages:index' %}">Нормативные документы</a></p>
+        <p><a href="{% url 'search:haystack_search' %}">Поиск</a></p>
+        <p><a href="{% url 'form:feedback' '' %}">Форма обратной связи - 1</a></p>
+        <p><a href="{% url 'form:feed' %}">Форма обратной связи - 2</a></p>
+    {% endblock %}
+
 </body>
 </html>

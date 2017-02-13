@@ -15,7 +15,7 @@
 
 <div id="feedback_drop" class="hiding"></div>
 <div id="feedback_popup">
-    <form id="form" class="feedback" action="/feedback/2ajax{{ request.path }}" method="POST" enctype="multipart/form-data">
+    <form id="form" class="feedback" action="/feedback/2ajax/" method="POST" enctype="multipart/form-data">
 
     {% csrf_token %}
     {{ email_form.as_p }}

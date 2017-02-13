@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from ckeditor.fields import RichTextField
 from mptt.models import MPTTModel, TreeForeignKey
 import django_filters
-
+from meta.models import ModelMeta
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
@@ -24,11 +24,21 @@ class PublishedModel(models.Model):
 
 
 # Велосипед CMS
-class Page(PublishedModel, models.Model):
+class Page(ModelMeta, PublishedModel, models.Model):
     title = models.CharField(max_length=255, verbose_name='Название')
-    datetime = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
+    datetime = models.DateTimeField(verbose_name='Дата публикации')
     slug = models.SlugField(max_length=255, unique=True, verbose_name='URL')
     text = RichTextField(null=True, blank=True, verbose_name='Текст (HTML-блок)')
+
+    title_page = models.CharField(max_length=170)
+    description_page = models.TextField()
+    keywords_page = models.TextField()
+
+    _metadata = {
+        'title': 'title_page',
+        'description': 'description_page',
+        'keywords': 'keywords_page',
+    }
 
     class Meta:
         abstract = True

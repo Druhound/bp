@@ -51,6 +51,16 @@ class RegulationsAdmin(admin.ModelAdmin):
     date_hierarchy = 'datetime'
     search_fields = ['title', 'datetime']
 
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'slug', 'text', 'datetime')
+        }),
+        ('SEO', {
+            'classes': ('collapse',),
+            'fields': ('title_page', 'description_page', 'keywords_page'),
+        }),
+    )
+
     def thumb(self, object):
         if object.image:
             t = get_thumbnail(object.image, "100x100", crop='center', quality=90)
