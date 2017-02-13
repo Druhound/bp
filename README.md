@@ -6,3 +6,4 @@
 - django-ckeditor
 - django-haystack
 - Whoosh
+- django-meta
