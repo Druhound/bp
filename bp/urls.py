@@ -12,7 +12,6 @@ urlpatterns = [
     url(r'^search/', include('haystack.urls', namespace='search')),
     url(r'^normativnye_dokumenty/', include('app.pages.urls', namespace='pages')),
     url(r'^feedback/', include('app.feedback_form.urls', namespace='form')),
-    url(r'^meta/', include('metatag.urls', namespace='form')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += staticfiles_urlpatterns()

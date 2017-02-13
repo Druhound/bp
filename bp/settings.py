@@ -27,7 +27,6 @@ INSTALLED_APPS = [
     'haystack',
     'sorl.thumbnail',
     'django_filters',
-    'meta',
 
     'app',
     'app.pages',
