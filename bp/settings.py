@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'app.pages',
     'app.search',
     'app.feedback_form',
-    'metatag',
+    'meta',
 ]
 
 MIDDLEWARE = [

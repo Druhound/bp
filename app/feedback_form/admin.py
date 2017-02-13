@@ -4,6 +4,7 @@ from .models import Callback, EmailTemplate
 
 class CallbackAdmin(admin.ModelAdmin):
     list_display = ('name', 'telephone', 'text')
+    fields = ('name', 'telephone', 'text', 'title', 'url')
 
 
 class EmailTemplateAdmin(admin.ModelAdmin):
