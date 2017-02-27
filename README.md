@@ -7,3 +7,4 @@
 - django-haystack
 - Whoosh
 - django-meta
+- lxml

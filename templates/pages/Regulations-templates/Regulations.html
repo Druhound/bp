@@ -32,9 +32,6 @@
 
 {% block content %}
 <h2>Нормативные документы</h2>
-{#    {% for cur in currency %}#}
-{#        <p>{{ cur }}</p>#}
-{#    {% endfor %}#}
     {{ currency.USD|floatformat:2 }}
     {{ currency.EUR|floatformat:2 }}
     {{ currency.Oil|floatformat:2 }}<br>

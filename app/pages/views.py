@@ -1,12 +1,6 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function
 import random
-
-from django.utils import timezone
 from django.views.generic import ListView, DetailView
-
-# Важные вещи, но это не точно
-from django.shortcuts import render
 from django.http import Http404
 
 from app.pages.models import Document, Regulations, Category
@@ -58,7 +52,8 @@ class RegulationsDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(RegulationsDetailView, self).get_context_data(**kwargs)
-        # Cписок избранных категорий (Псевдорандом путем выборки рандомного индекса и отсчиыванием от него 4 элемента) ((Неоптимизированно))
+        # Cписок избранных категорий (Псевдорандом путем выборки рандомного индекса и отсчиыванием от него 4 элемента)
+        # ((Неоптимизированно))
         slice = random.random() * (Category.get_published.all().count() - 2)
         context['topicList'] = Category.get_published.all()[slice: slice + 4]
         context['news_list'] = Regulations.get_published.filter(category_parent_id=2)
@@ -81,26 +76,22 @@ class RegulationsDetailView(DetailView):
         return template_name
 
 
-def document_view(request, slug):
-    context = {}
-    try:
-        document = Document.get_published.get(slug=slug)
-    except:
-        raise Http404
-    template = 'pages/Document-templates/Document' + document.templates + '.html'
-    context['document'] = document
-    return render(request, template, context)
+# Детальный просмотр документов (beta)
+class DocumentDetailView(DetailView):
+    context_object_name = 'document'
+    queryset = Document.get_published.all()
 
+    def get_queryset(self):
+        try:
+            queryset = Document.get_published.filter(slug=self.kwargs['slug'])
+        except:
+            raise Http404
+        return queryset
 
-# # Детальный просмотр документов (beta)
-# class DocumentDetailView(MetadataMixin, DetailView, slug):
-#     context_object_name = 'document'
-#     queryset = Document.get_published.get(slug=slug)
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(DocumentDetailView, self).get_context_data(**kwargs)
-#         return context
-#
-#     def get_template_names(self):
-#         template_name = 'pages/Document-templates/Document' + self.object.templates + '.html'
-#         return template_name
+    def get_context_data(self, **kwargs):
+        context = super(DocumentDetailView, self).get_context_data(**kwargs)
+        return context
+
+    def get_template_names(self):
+        template_name = 'pages/Document-templates/Document' + self.object.templates + '.html'
+        return template_name

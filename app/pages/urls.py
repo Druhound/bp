@@ -1,10 +1,10 @@
 # coding=utf-8
 from django.conf.urls import url
 
-from app.pages.views import RegulationsListView, RegulationsDetailView, AllCategoryRegulationsListView
+from . import views
 
 urlpatterns = [
-    url(r'^$', AllCategoryRegulationsListView.as_view(), name='index'),
-    url(r'^(?P<category>[^/]*)/$', RegulationsListView.as_view(), name='list'),
-    url(r'^(?P<category>[^/]*)/(?P<slug>[^/]*)/$', RegulationsDetailView.as_view(), name='detail')
+    url(r'^$', views.AllCategoryRegulationsListView.as_view(), name='index'),
+    url(r'^(?P<category>[^/]*)/$', views.RegulationsListView.as_view(), name='list'),
+    url(r'^(?P<category>[^/]*)/(?P<slug>[^/]*)/$', views.RegulationsDetailView.as_view(), name='detail')
 ]
