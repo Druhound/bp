@@ -4,4 +4,4 @@ from django.apps import AppConfig
 
 
 class CurrConfig(AppConfig):
-    name = 'app.Curr'
+    name = 'app.currency'

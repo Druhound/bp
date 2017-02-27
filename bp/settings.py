@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'app.search',
     'app.feedback_form',
     'app.education',
-    'app.Curr'
+    'app.currency'
 
 ]
 

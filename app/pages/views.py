@@ -10,7 +10,7 @@ from django.shortcuts import render
 from django.http import Http404
 
 from app.pages.models import Document, Regulations, Category
-from app.Curr.models import Currency
+from app.currency.models import Currency
 
 
 # Просмотр списка всех категорий нормативных документов
