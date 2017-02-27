@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 {% load thumbnail static%}
 {% block extra %}
-    <link type="text/css" rel="stylesheet" href="{% static 'pages/slick.css' %}"/>
-    <link type="text/css" rel="stylesheet" href="{% static 'pages/slick-theme1.css' %}"/>
-    <script src="{% static 'pages/slick.min.js' %}"></script>
+    <link type="text/css" rel="stylesheet" href="{% static 'pages/jquery.bxslider.css' %}"/>
+    <script src="{% static 'pages/jquery.bxslider.min.js' %}"></script>
 
 
 
@@ -87,11 +86,11 @@
 
     <div  style="width: 100%; float: left;">
         <div class="autoplay" style="width: 80%; margin: 0 auto;" >
-        {% for category in topicList %}
-            <div>{{ category.datetime|date }} - <a href="{% url 'pages:list' category.slug %}">{{ category.title }}</a></div>
-        {% empty %}
-             <div>No articles yet.</div>
-        {% endfor %}
+            {% for category in topicList %}
+                <div>{{ category.datetime|date }} - <a href="{% url 'pages:list' category.slug %}">{{ category.title }}</a></div>
+            {% empty %}
+                 <div>No articles yet.</div>
+            {% endfor %}
         </div>
         <script>
             $('.autoplay').slick({
@@ -107,10 +106,33 @@
     <br />
     <br />
 
-    {% for news in news_list %}
-        <p><a href="{% url 'pages:list' 'nasa' %}{{ news.slug }}">{{ news.title }}</a></p>
-    {% endfor %}
+    <div  style="width: 100%; float: left;">
+        <div class="carusel" style="width: 80%; margin: 0 auto;" >
+            <div class="slide"><p><a href="#">1</a></p></div>
+            <div class="slide"><p><a href="#">1</a></p></div>
+            <div class="slide"><p><a href="#">1</a></p></div>
+            <div class="slide"><p><a href="#">1</a></p></div>
+            <div class="slide"><p><a href="#">1</a></p></div>
+            <div class="slide"><p><a href="#">1</a></p></div>
+            <div class="slide"><p><a href="#">1</a></p></div>
+            <div class="slide"><p><a href="#">1</a></p></div>
+            <div class="slide"><p><a href="#">1</a></p></div>
+            <div class="slide"><p><a href="#">1</a></p></div>
+            <div class="slide"><p><a href="#">1</a></p></div>
 
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+          $('.carusel').bxSlider({
+            slideWidth: 300,
+            minSlides: 2,
+            maxSlides: 3,
+            moveSlides: 1,
+            slideMargin: 10
+          });
+        });
+    </script>
 
 <div style="width:100%;float:left;position:relative;height: 350px;">
     {% include "feedback_form/Callback_emailform.html" %}

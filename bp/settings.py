@@ -6,33 +6,45 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'gl(_blk13s#8&)eoup(jx^rab-&tfnzvmmi%#xi*%vb&7mph#k'
 
 DEBUG = True
+# DEBUG = False
 
 ALLOWED_HOSTS = [u'127.0.0.1']
 
 SITE_ID = 1
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    'admin_tools',
+    'admin_tools.theming',
+    'admin_tools.menu',
+    'admin_tools.dashboard',
+
     'django.contrib.auth',
+    'django.contrib.sites',
+    'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
-    'django_geoip',
+
 
     'mptt',
     'django_mptt_admin',
     'ckeditor',
+    'django_geoip',
     'haystack',
     'sorl.thumbnail',
+    'meta',
+
+    # Удалить
     'django_filters',
 
     'app',
     'app.pages',
     'app.search',
     'app.feedback_form',
-    'meta',
+    'app.education',
+    'app.Curr'
+
 ]
 
 MIDDLEWARE = [
@@ -47,21 +59,31 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'bp.urls'
 
+# ADMIN_TOOLS
+ADMIN_TOOLS_INDEX_DASHBOARD = 'bp.dashboard.CustomIndexDashboard'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'APP_DIRS': True,
+        # 'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
             ],
+            'loaders': [
+                'admin_tools.template_loaders.Loader',
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+            ]
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'bp.wsgi.application'
 
@@ -72,7 +94,7 @@ DATABASES = {
         'USER': 'bp_user',
         'PASSWORD': 'pass',
         'HOST': 'localhost',
-        # 'PORT': '',
+        'PORT': '5432',
     }
 }
 
@@ -164,3 +186,4 @@ SERVER_EMAIL = "seversait@yandex.ru"
 
 # META
 META_USE_TITLE_TAG = True
+

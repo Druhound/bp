@@ -7,9 +7,11 @@ from django_mptt_admin.admin import DjangoMpttAdmin
 
 from sorl.thumbnail import get_thumbnail
 
+
 from app.pages.views import Document, Regulations, Category
 
-class DocumentAdmin(forms.ModelForm):
+
+class DocumentAdminForm(forms.ModelForm):
     class Meta:
         model = Document
         fields = '__all__'
@@ -23,25 +25,31 @@ class DocumentAdmin(forms.ModelForm):
                     raise ValidationError(u'Уже есть корневой элемент с таким идентификатором!')
         return identifier
 
-class DocumentAdminForm(DjangoMpttAdmin, forms.ModelForm):
+
+class DocumentAdmin(DjangoMpttAdmin, forms.ModelForm, admin.ModelAdmin):
     tree_auto_open = 0
     list_display = ('title',)
     search_fields = ('title',)
     ordering = ('title',)
-    form = DocumentAdmin
+    form = DocumentAdminForm
+
+    fieldsets = (
+        (None, {
+            'fields': ('published', 'title', 'identifier',  'templates', 'text', 'datetime'),
+        }),
+        ('SEO', {
+            'fields': ('title_page', 'description_page', 'keywords_page')
+        }),
+    )
 
     def save_model(self, request, obj, form, change):
-        super(DocumentAdminForm, self).save_model(request, obj, form, change)
-        if obj.slug != obj._old_slug or obj._old_parent != obj.parent:
-            descendants = obj.get_descendants(include_self=True)
+        super(DocumentAdmin, self).save_model(request, obj, form, change)
+        if obj.identifier != obj._old_identifier or obj._old_parent != obj.parent:
+            descendants = obj.get_root().get_descendants(include_self=True)
             for descendant in descendants:
-                descendant.slug = ''.join([doc.slug for doc in descendant.get_ancestors(include_self=True)]) + u'/'
+                descendant.slug = u'' + u'/'.join([doc.identifier for doc in descendant.get_ancestors(include_self=True)]) + u'/'
                 descendant.save()
-            messages.info(request, u"У {} документов обновлен URL".format(len(descendants)))
-
-    class Meta:
-        model = Document
-        fields = '__all__'
+            messages.info(request, u"У {} документов обновлен Slug".format(len(descendants)))
 
 
 class RegulationsAdmin(admin.ModelAdmin):
@@ -53,7 +61,7 @@ class RegulationsAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('title', 'slug', 'text', 'datetime')
+            'fields': ('published', 'title', 'slug', 'data', 'templates', 'text', 'datetime')
         }),
         ('SEO', {
             'classes': ('collapse',),
@@ -77,6 +85,6 @@ class RegulationsAdmin(admin.ModelAdmin):
         }
 
 
-admin.site.register(Document, DocumentAdminForm)
+admin.site.register(Document, DocumentAdmin)
 admin.site.register(Category)
 admin.site.register(Regulations, RegulationsAdmin)

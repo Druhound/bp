@@ -1,20 +1,25 @@
 # -*- coding: utf-8 -*-
+from __future__ import print_function
 import random
 
 from django.utils import timezone
 from django.views.generic import ListView, DetailView
-from meta.views import MetadataMixin
 
+# Важные вещи, но это не точно
+from django.shortcuts import render
+from django.http import Http404
 
 from app.pages.models import Document, Regulations, Category
+from app.Curr.models import Currency
 
 
 # Просмотр списка всех категорий нормативных документов
 class AllCategoryRegulationsListView(ListView):
     model = Category
+
     template_name = 'pages/Regulations_list.html'
     context_object_name = 'category_list'
-    queryset = Category.get_published.filter(datetime__lte=timezone.now())
+    queryset = Category.get_published.all()
 
     def get_context_data(self, **kwargs):
         context = super(AllCategoryRegulationsListView, self).get_context_data(**kwargs)
@@ -37,42 +42,65 @@ class RegulationsListView(ListView):
     # Список документов
     def get_queryset(self):
         # Фильтруем документы по категории, по галке публикации, по дате публикации
-        category_parent = Category.get_published.get(slug=self.kwargs['category'])
+        try:
+            category_parent = Category.get_published.get(slug=self.kwargs['category'])
+        except:
+            raise Http404
         queryset = Regulations.get_published.filter(
-            datetime__lte=timezone.now(),
             category_parent_id=category_parent.id)
         return queryset
 
 
 # Детальный просмотр нормативных документов через категории
-class RegulationsDetailView(MetadataMixin, DetailView):
-    template_name = 'pages/Regulations.html'
+class RegulationsDetailView(DetailView):
     context_object_name = 'regulations'
+    queryset = Regulations.get_published.all()
 
     def get_context_data(self, **kwargs):
         context = super(RegulationsDetailView, self).get_context_data(**kwargs)
-        # Cписок избранных категорий (Псевдорандом путем выборки рандомного индекса и отсчиыванием от него 4 элемента)
+        # Cписок избранных категорий (Псевдорандом путем выборки рандомного индекса и отсчиыванием от него 4 элемента) ((Неоптимизированно))
         slice = random.random() * (Category.get_published.all().count() - 2)
         context['topicList'] = Category.get_published.all()[slice: slice + 4]
-        context['news_list'] = Regulations.get_published.filter(category_parent_id=2)[:2]
+        context['news_list'] = Regulations.get_published.filter(category_parent_id=2)
         context['meta'] = self.get_object().as_meta(self.request)
+        context['currency'] = Currency.objects.get(id=1)
         return context
 
     # Список документов которые доступны на сайте
     def get_queryset(self):
         # Фильтруем документы по категории, по галке публикации, по дате публикации
-        category_parent = Category.get_published.get(slug=self.kwargs['category'])
-        queryset = Regulations.get_published.filter(
-            datetime__lte=timezone.now(),
-            category_parent_id=category_parent)
+        try:
+            category_parent = Category.get_published.get(slug=self.kwargs['category'])
+        except:
+            raise Http404
+        queryset = Regulations.get_published.filter(category_parent_id=category_parent)
         return queryset
 
+    def get_template_names(self):
+        template_name = 'pages/Regulations-templates/Regulations' + self.object.templates + '.html'
+        return template_name
 
-# Детальный просмотр статьи через древовидную структуру
-class DocumentDetailView(DetailView):
-    model = Document
-    template_name = 'pages/Document.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(DocumentDetailView, self).get_context_data(**kwargs)
-        return context
+def document_view(request, slug):
+    context = {}
+    try:
+        document = Document.get_published.get(slug=slug)
+    except:
+        raise Http404
+    template = 'pages/Document-templates/Document' + document.templates + '.html'
+    context['document'] = document
+    return render(request, template, context)
+
+
+# # Детальный просмотр документов (beta)
+# class DocumentDetailView(MetadataMixin, DetailView, slug):
+#     context_object_name = 'document'
+#     queryset = Document.get_published.get(slug=slug)
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(DocumentDetailView, self).get_context_data(**kwargs)
+#         return context
+#
+#     def get_template_names(self):
+#         template_name = 'pages/Document-templates/Document' + self.object.templates + '.html'
+#         return template_name

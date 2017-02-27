@@ -6,6 +6,5 @@ from app.pages.views import RegulationsListView, RegulationsDetailView, AllCateg
 urlpatterns = [
     url(r'^$', AllCategoryRegulationsListView.as_view(), name='index'),
     url(r'^(?P<category>[^/]*)/$', RegulationsListView.as_view(), name='list'),
-    url(r'^(?P<category>[^/]*)/(?P<slug>[^/]*)/$', RegulationsDetailView.as_view(), name='detail'),
-    #url(r'^list$', views.product_list)
+    url(r'^(?P<category>[^/]*)/(?P<slug>[^/]*)/$', RegulationsDetailView.as_view(), name='detail')
 ]
