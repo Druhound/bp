@@ -15,7 +15,6 @@ urlpatterns = [
     url(r'^normativnye_dokumenty/', include('app.pages.urls', namespace='pages')),
     url(r'^educations/', include('app.education.urls', namespace='education')),
     url(r'^feedback/', include('app.feedback_form.urls', namespace='form')),
-    # url(r'^(?P<slug>.*/)$', views.document_view, name='list_2'),
     url(r'^(?P<slug>.*/)$', views.DocumentDetailView.as_view(), name='list_2'),
 
 ]
