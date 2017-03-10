@@ -21,6 +21,12 @@ class EducationAdminForm(forms.ModelForm):
         return identifier
 
 
+class Media:
+    css = {
+        'all': ('/static/custom/admin_education.css',)
+    }
+
+
 class EducationAdmin(DjangoMpttAdmin, admin.ModelAdmin):
     tree_auto_open = 0
     list_display = ('title',)
@@ -41,6 +47,10 @@ class EducationAdmin(DjangoMpttAdmin, admin.ModelAdmin):
             'fields': ('module3', 'module4', 'module2', 'module5',
                        'module6', 'module7', 'module8', 'module9',
                        'module10', 'module11', 'module12', 'module13')
+        }),
+        ('Цены', {
+            'classes': ('inlines',),
+            'fields': (('price_msc', 'price_sbp', 'price_oth'), )
         }),
         ('SEO', {
             'classes': ('collapse',),

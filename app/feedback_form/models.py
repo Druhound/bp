@@ -35,6 +35,7 @@ class EmailTemplate(models.Model):
 class Callback(models.Model):
     name = models.CharField(verbose_name='Контактное лицо', max_length=50)
     telephone = models.CharField(verbose_name="Контактный телефон", max_length=17, blank=True)
+    Email = models.EmailField()
     text = models.TextField(verbose_name='Комментарий', blank=True)
     title = models.CharField(verbose_name="Страница с формой", max_length=50, blank=True)
     url = models.CharField(max_length=255, verbose_name=_('url'), blank=True)

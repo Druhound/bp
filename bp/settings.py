@@ -34,17 +34,15 @@ INSTALLED_APPS = [
     'haystack',
     'sorl.thumbnail',
     'meta',
-
-    # Удалить
-    'django_filters',
+    'compressor',
 
     'app',
     'app.pages',
     'app.search',
     'app.feedback_form',
     'app.education',
-    'app.currency'
-
+    'app.currency',
+    'app.reviews',
 ]
 
 MIDDLEWARE = [
@@ -59,8 +57,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'bp.urls'
 
+APPEND_SLASH = False
+
 # ADMIN_TOOLS
 ADMIN_TOOLS_INDEX_DASHBOARD = 'bp.dashboard.CustomIndexDashboard'
+ADMIN_TOOLS_MENU = 'bp.menu.CustomMenu'
 
 TEMPLATES = [
     {
@@ -158,10 +159,21 @@ DEFAULT = False
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'files/static')
 
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'files/static'),
 )
 STATIC_URL = '/static/'
+
+COMPRESS_PRECOMPILERS = (
+    ('text/scss', 'sass --scss {infile} {outfile}'),
+)
+COMPRESS_ROOT = os.path.join(BASE_DIR, 'files/static')
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'files/media')

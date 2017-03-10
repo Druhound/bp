@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% load thumbnail static%}
 {% block extra %}
-    <link type="text/css" rel="stylesheet" href="{% static 'pages/jquery.bxslider.css' %}"/>
-    <script src="{% static 'pages/jquery.bxslider.min.js' %}"></script>
+    <link type="text/css" rel="stylesheet" href="{% static 'main/pages/jquery.bxslider.css' %}"/>
+    <script src="{% static 'main/pages/jquery.bxslider.min.js' %}"></script>
 
 
 
-    <link type="text/css" rel="stylesheet" href="{% static 'pages/unslider.css' %}"/>
-    <link type="text/css" rel="stylesheet" href="{% static 'pages/unslider-dots.css' %}"/>
-    <script src="{% static 'pages/unslider-min.js' %}"></script>
+    <link type="text/css" rel="stylesheet" href="{% static 'main/pages/unslider.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'main/pages/unslider-dots.css' %}"/>
+    <script src="{% static 'main/pages/unslider-min.js' %}"></script>
     <script>
         jQuery(document).ready(function($) {
             $('.slider').unslider({

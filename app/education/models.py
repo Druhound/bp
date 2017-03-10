@@ -58,6 +58,11 @@ class Education(ModelMeta, MPTTModel, PublishedModel):
 
     # -- Также рекомендуем
     module13 = RichTextField(blank=True, verbose_name='Также рекомендуем')
+
+    # -- Цены программ
+    price_msc = models.IntegerField(blank=True, verbose_name='Цена для Москвы')
+    price_sbp = models.IntegerField(blank=True, verbose_name='Цена для Питера')
+    price_oth = models.IntegerField(blank=True, verbose_name='Цена для других регионов')
     # end
 
     # Мета

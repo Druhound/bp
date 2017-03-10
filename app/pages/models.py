@@ -106,7 +106,6 @@ class Regulations(Page):
     category_parent = models.ForeignKey('Category', related_name='REG', verbose_name='Категория нормативных документов', on_delete=models.CASCADE)
     file = models.FileField(verbose_name='Документ', upload_to='documents')
     image = models.ImageField(blank=True)
-    data = JSONField()
 
     def __unicode__(self):
         return self.title

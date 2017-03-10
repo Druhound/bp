@@ -61,7 +61,7 @@ class RegulationsAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('published', 'title', 'slug', 'data', 'templates', 'text', 'datetime')
+            'fields': ('published', 'title', 'slug', 'templates', 'text', 'datetime')
         }),
         ('SEO', {
             'classes': ('collapse',),
@@ -78,11 +78,6 @@ class RegulationsAdmin(admin.ModelAdmin):
 
     thumb.short_description = 'Превью'
     thumb.allow_tags = True
-
-    class Media:
-        css = {
-            'all': ('/media/admin.css',)
-        }
 
 
 admin.site.register(Document, DocumentAdmin)

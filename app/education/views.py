@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import Http404
+from django.http import Http404, HttpResponsePermanentRedirect
 from django.views.generic import TemplateView
 
 from app.education.models import Education
@@ -19,7 +19,10 @@ def education_view(request, slug):
     try:
         page = Education.get_published.get(slug=slug)
     except:
-        raise Http404
+        if not slug.endswith('/'):
+            return HttpResponsePermanentRedirect('%s/' % request.path)
+        else:
+            raise Http404
     template = 'education/Education-templates/Education' + page.templates + '.html'
     context['education'] = page
     return render(request, template, context)

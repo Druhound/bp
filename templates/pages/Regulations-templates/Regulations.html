@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% load thumbnail static%}
 {% block extra %}
-    <link type="text/css" rel="stylesheet" href="{% static 'pages/jquery.bxslider.css' %}"/>
-    <script src="{% static 'pages/jquery.bxslider.min.js' %}"></script>
+    <link type="text/css" rel="stylesheet" href="{% static 'main/pages/jquery.bxslider.css' %}"/>
+    <script src="{% static 'main/pages/jquery.bxslider.min.js' %}"></script>
 
 
 
-    <link type="text/css" rel="stylesheet" href="{% static 'pages/unslider.css' %}"/>
-    <link type="text/css" rel="stylesheet" href="{% static 'pages/unslider-dots.css' %}"/>
-    <script src="{% static 'pages/unslider-min.js' %}"></script>
+    <link type="text/css" rel="stylesheet" href="{% static 'main/pages/unslider.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'main/pages/unslider-dots.css' %}"/>
+    <script src="{% static 'main/pages/unslider-min.js' %}"></script>
     <script>
         jQuery(document).ready(function($) {
             $('.slider').unslider({
@@ -34,7 +34,10 @@
 <h2>Нормативные документы</h2>
     {{ currency.USD|floatformat:2 }}
     {{ currency.EUR|floatformat:2 }}
-    {{ currency.Oil|floatformat:2 }}<br>
+    {{ currency.Oil|floatformat:2 }}
+    {{ currency.CBR }}
+    {{ currency.MRT }}
+    <br>
     {{ currency.datetime }}
 
 
@@ -82,11 +85,11 @@
     {% thumbnail regulations.image "500x200" crop="center" quality=99 as im %}
         <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
     {% endthumbnail %}
-    <h3>Заголовок:{{ regulations.title }}</h3>
-    <p>Время:{{ regulations.datetime }}</p>
-    <p>Категория{{ regulations.category_parent }}</p>
-    <p>Текст:{{ regulations.text }}</p>
-    <p>Файл:{{ regulations.file }}</p>
+    <h3>Заголовок: {{ regulations.title }}</h3>
+    <p>Время: {{ regulations.datetime }}</p>
+    <p>Категория: {{ regulations.category_parent }}</p>
+    <p>Текст: {{ regulations.text }}</p>
+    <p>Файл: {{ regulations.file }}</p>
 </div>
 
     <div  style="width: 100%; float: left;">

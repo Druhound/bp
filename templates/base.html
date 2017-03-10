@@ -1,15 +1,22 @@
-{% load thumbnail static meta %}
+{% load thumbnail static meta compress %}
 
 <html>
 <head {% meta_namespaces %}>
 
     {% include "meta/meta.html" %}
-    <script src="{% static 'jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'main/jquery-3.1.1.min.js' %}"></script>
     {% block extra %}
     {% endblock %}
+
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'SASS/css.scss' %}" type="text/scss" charset="utf-8">
+    <link rel="stylesheet" href="{% static 'SASS/main.scss' %}" type="text/scss" charset="utf-8">
+
+    {% endcompress %}
+
 </head>
 
-<body>
+<body class="main">
     {% block content %}
         <p><a href="{% url 'pages:index' %}">Нормативные документы</a></p>
         <p><a href="{% url 'list_2' 'dokumenty/' %}">Документы</a></p>
