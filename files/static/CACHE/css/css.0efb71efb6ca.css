@@ -1,0 +1,18 @@
+body {
+  background: #DDD; }
+
+.dropdown_active {
+  position: fixed;
+  width: 50%;
+  left: 25%;
+  right: 25%;
+  background: #fff;
+  padding: 10px;
+  top: 25%; }
+  .dropdown_active .JS-Dropdown-List {
+    display: block; }
+
+.JS-Dropdown-List {
+  display: none; }
+
+/*# sourceMappingURL=tmpouAx6z.css.map */
