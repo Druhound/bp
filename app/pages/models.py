@@ -8,7 +8,6 @@ from ckeditor.fields import RichTextField
 from mptt.models import MPTTModel, TreeForeignKey
 import django_filters
 from meta.models import ModelMeta
-from django.contrib.postgres.fields import JSONField
 
 
 class PublishedManager(models.Manager):

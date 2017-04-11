@@ -79,7 +79,23 @@
         </ul>
     </div>
 
+    <script src="http://malsup.github.com/jquery.form.js"></script>
+        <script>
+        $(document).ready(function() {
+            $('#form').ajaxForm(function() {
+                alert("Thank you for your comment!");
+            });
+        });
+    </script>
 
+<form id="form" class="feedback" action="/feedback/2ajax/" method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    <p><label for="id_telephone">Telephone:</label> <input id="id_telephone" maxlength="30" name="telephone" type="text" required=""></p>
+    <p><label for="id_attach">Attach:</label> <input name="attach" type="file"></p>
+    <button>Send</button>
+</form>
 
 <div style="width: 100%;float: left;">
     {% thumbnail regulations.image "500x200" crop="center" quality=99 as im %}
@@ -93,21 +109,13 @@
 </div>
 
     <div  style="width: 100%; float: left;">
-        <div class="autoplay" style="width: 80%; margin: 0 auto;" >
+        <div style="width: 100%; margin: 0 auto;" >
             {% for category in topicList %}
                 <div>{{ category.datetime|date }} - <a href="{% url 'pages:list' category.slug %}">{{ category.title }}</a></div>
             {% empty %}
                  <div>No articles yet.</div>
             {% endfor %}
         </div>
-        <script>
-            $('.autoplay').slick({
-              slidesToShow: 3,
-              slidesToScroll: 1,
-              autoplay: true,
-              autoplaySpeed: 2000,
-            });
-        </script>
     </div>
 
 <a href="{% url 'pages:list' regulations.category_parent.slug %}">Вернуться назад</a>

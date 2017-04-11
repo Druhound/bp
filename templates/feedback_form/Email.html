@@ -1,27 +1,20 @@
 {% load static %}
-{% load i18n %}
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+
     <script src="http://malsup.github.com/jquery.form.js"></script>
         <script>
-        // wait for the DOM to be loaded
         $(document).ready(function() {
-            // bind 'myForm' and provide a simple callback function
             $('#form').ajaxForm(function() {
-
+                alert("Thank you for your comment!");
             });
         });
     </script>
 
+{% if email_form %}
+<form id="form" class="feedback" action="/feedback/2ajax/" method="POST" enctype="multipart/form-data">
 
-<div id="feedback_drop" class="hiding"></div>
-<div id="feedback_popup">
-    <form id="form" class="feedback" action="/feedback/2ajax/" method="POST" enctype="multipart/form-data">
-
-    {% csrf_token %}
-    {{ email_form.as_p }}
-    <button class="feedback_submit_button">Send</button>
-
-    </form>
-    <div class="thanks hiding">Thank you for your feedback!</div>
-    <div class="close"></div>
-</div>
+{% csrf_token %}
+{{email_form.as_p}}
+{{message}}
+<button class="feedback_submit_button">Send</button>
+</form>
+{% endif %}

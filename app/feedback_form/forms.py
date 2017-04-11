@@ -28,8 +28,8 @@ class CallbackSOUTForm2(forms.Form):
 
 
 class EmailForm(forms.Form):
-    # name = forms.CharField(required=False)
-    # telephone = forms.CharField(max_length=30)
-    # rab = forms.CharField(max_length=10, required=False)
+    name = forms.CharField(required=False)
+    telephone = forms.CharField(max_length=30)
+    rab = forms.CharField(max_length=10, required=False)
     attach = forms.Field(widget=forms.FileInput, required=False)
     validation = forms.BooleanField(required=False)

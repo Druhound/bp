@@ -4,8 +4,10 @@ from django.utils import timezone
 from ckeditor.fields import RichTextField
 from mptt.models import MPTTModel, TreeForeignKey
 from meta.models import ModelMeta
-
+from django_geoip.models import IpRange
 from django.db import models
+
+DEFAULT_REGION = u'Другой регион'
 
 
 class PublishedManager(models.Manager):
@@ -99,3 +101,29 @@ class Education(ModelMeta, MPTTModel, PublishedModel):
 
         def __init__(self):
             pass
+
+
+class Locations(PublishedModel, models.Model):
+    name = models.CharField(max_length=255, verbose_name=u'Название')
+    datetime = models.DateTimeField(verbose_name='Дата публикации', default=timezone.now)
+    address = models.CharField(blank=True, null=True, max_length=200, verbose_name='Адрес')
+
+    def __unicode__(self):
+        return self.name
+
+    @classmethod
+    def get_default_location(cls):
+        location = cls.objects.get(id=1, published=True)
+        return location
+
+    @classmethod
+    def get_location_by_ip_or_default(cls, ip):
+        try:
+            geoip = IpRange.objects.by_ip(ip)
+            if geoip.city:
+                location = cls.objects.get(name=geoip.city.name, published=True)
+            else:
+                location = cls.get_default_location()
+        except (IpRange.DoesNotExist, cls.DoesNotExist):
+            location = cls.get_default_location()
+        return location

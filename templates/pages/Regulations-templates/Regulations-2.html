@@ -35,109 +35,15 @@
 
     <div class="slider" style="height: 30px;">
         <ul>
-            <li>
-                <div style="width:50%;display: inline-block">1</div>
+            {% for category in topicList %}
+            <li style="
+                    background: url('{% static 'img/banner.jpg' %}');
+                    padding: 10px;
+                        ">
+                <div >Текст</div>
             </li>
-            <li>
-                <div style="width:50%;display: inline-block">2</div>
-            </li>
-
-            <li>
-                <div style="width:50%;display: inline-block">3</div>
-            </li>
-            <li>
-                <div style="width:50%;display: inline-block">4</div>
-            </li>
-
-            <li>
-                <div style="width:50%;display: inline-block">5</div>
-            </li>
-            <li>
-                <div style="width:50%;display: inline-block">6</div>
-            </li>
-
-            <li>
-                <div style="width:50%;display: inline-block">7</div>
-            </li>
-            <li>
-                <div style="width:50%;display: inline-block">8</div>
-            </li>
-            <li>
-                <div style="width:50%;display: inline-block">9</div>
-            </li>
-            <li>
-                <div style="width:50%;display: inline-block">10</div>
-            </li>
+            {% endfor %}
         </ul>
     </div>
-
-
-
-<div style="width: 100%;float: left;">
-    {% thumbnail regulations.image "500x200" crop="center" quality=99 as im %}
-        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-    {% endthumbnail %}
-    <h3>Заголовок:{{ regulations.title }}</h3>
-    <p>Время:{{ regulations.datetime }}</p>
-    <p>Категория{{ regulations.category_parent }}</p>
-    <p>Текст:{{ regulations.text }}</p>
-    <p>Файл:{{ regulations.file }}</p>
-</div>
-
-    <div  style="width: 100%; float: left;">
-        <div class="autoplay" style="width: 80%; margin: 0 auto;" >
-            {% for category in topicList %}
-                <div>{{ category.datetime|date }} - <a href="{% url 'pages:list' category.slug %}">{{ category.title }}</a></div>
-            {% empty %}
-                 <div>No articles yet.</div>
-            {% endfor %}
-        </div>
-        <script>
-            $('.autoplay').slick({
-              slidesToShow: 3,
-              slidesToScroll: 1,
-              autoplay: true,
-              autoplaySpeed: 2000,
-            });
-        </script>
-    </div>
-
-<a href="{% url 'pages:list' regulations.category_parent.slug %}">Вернуться назад</a>
-    <br />
-    <br />
-
-    <div  style="width: 100%; float: left;">
-        <div class="carusel" style="width: 80%; margin: 0 auto;" >
-            <div class="slide"><p><a href="#">1</a></p></div>
-            <div class="slide"><p><a href="#">1</a></p></div>
-            <div class="slide"><p><a href="#">1</a></p></div>
-            <div class="slide"><p><a href="#">1</a></p></div>
-            <div class="slide"><p><a href="#">1</a></p></div>
-            <div class="slide"><p><a href="#">1</a></p></div>
-            <div class="slide"><p><a href="#">1</a></p></div>
-            <div class="slide"><p><a href="#">1</a></p></div>
-            <div class="slide"><p><a href="#">1</a></p></div>
-            <div class="slide"><p><a href="#">1</a></p></div>
-            <div class="slide"><p><a href="#">1</a></p></div>
-
-        </div>
-    </div>
-    <script>
-        $(document).ready(function(){
-          $('.carusel').bxSlider({
-            slideWidth: 300,
-            minSlides: 2,
-            maxSlides: 3,
-            moveSlides: 1,
-            slideMargin: 10
-          });
-        });
-    </script>
-
-<div style="width:100%;float:left;position:relative;height: 350px;">
-    {% include "feedback_form/Callback_emailform.html" %}
-</div>
-
-
 
 {% endblock %}

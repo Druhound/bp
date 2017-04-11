@@ -69,7 +69,7 @@
     background-image:url(images/feedback_br_sm.png);
 }
 
-div.hiding {
+div.hiding, form.hiding {
     display:none;
 }
 

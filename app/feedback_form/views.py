@@ -30,12 +30,11 @@ def send_email(request):
 
     form = EmailForm(request.POST, request.FILES)
     if form.has_error(form):
-        print ('not valid')
         return HttpResponse(json.dumps({}))
 
     if form.is_valid():
         subject = u'Заказ СОУТ'
-        message = 'none'
+        message = u'Заказ СОУТ'
         if form.cleaned_data['validation']:
             print ('bot')
             return HttpResponse(json.dumps({}))
@@ -110,7 +109,6 @@ class FeedbackCreateView(CreateView):
 
     # Костыльный (пока что) метод отправки письма
     def form_valid(self, form):
-        #response = super(FeedbackCreateView, self).form_valid(form)
         if form.cleaned_data['age']:
             return HttpResponse(json.dumps({}))
         else:

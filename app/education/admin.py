@@ -1,6 +1,6 @@
 # coding=utf-8
 from django.contrib import admin
-from app.education.views import Education
+from app.education.models import Education, Locations
 from django import forms
 from django.core.exceptions import ValidationError
 from django_mptt_admin.admin import DjangoMpttAdmin
@@ -68,3 +68,5 @@ class EducationAdmin(DjangoMpttAdmin, admin.ModelAdmin):
 
 
 admin.site.register(Education, EducationAdmin)
+admin.site.register(Locations)
+

@@ -18,6 +18,8 @@ INSTALLED_APPS = [
     'admin_tools.menu',
     'admin_tools.dashboard',
 
+    'django_hosts',
+
     'django.contrib.auth',
     'django.contrib.sites',
     'django.contrib.admin',
@@ -26,9 +28,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'googlecharts',
 
     'mptt',
     'django_mptt_admin',
+    'ckeditor_uploader',
     'ckeditor',
     'django_geoip',
     'haystack',
@@ -43,9 +47,17 @@ INSTALLED_APPS = [
     'app.education',
     'app.currency',
     'app.reviews',
+    'app.graphics',
+    'app.utm',
+    'app.news',
+    'app.album',
+    'app.parsing',
 ]
 
-MIDDLEWARE = [
+MIDDLEWARE_CLASSES = [
+    'django_hosts.middleware.HostsRequestMiddleware',
+    'bp.middleware.EducationalCenterMiddleware',
+
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -53,6 +65,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'django_hosts.middleware.HostsResponseMiddleware',
 ]
 
 ROOT_URLCONF = 'bp.urls'
@@ -74,7 +88,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-
+                # 'bp.context_processors.locations',
             ],
             'loaders': [
                 'admin_tools.template_loaders.Loader',
@@ -84,7 +98,6 @@ TEMPLATES = [
         },
     },
 ]
-
 
 WSGI_APPLICATION = 'bp.wsgi.application'
 
@@ -100,27 +113,15 @@ DATABASES = {
 }
 
 # CKEditor settings
-CKEDITOR_UPLOAD_PATH = 'ckeditor_uploads'
+CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False
+CKEDITOR_RESTRICT_BY_USER = True
+CKEDITOR_BROWSE_SHOW_DIRS = True
+CKEDITOR_UPLOAD_PATH = 'files/media'
 CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
 CKEDITOR_IMAGE_BACKEND = 'pillow'
 CKEDITOR_CONFIGS = {
     'default': {
-        'toolbar': [
-            ['Source'],
-            ['Bold', 'Italic', 'Underline', 'Strike',
-             'Subscript', 'Superscript'],
-            ['NumberedList', 'BulletedList', 'Outdent', 'Indent'],
-            ['JustifyLeft', 'JustifyCenter', 'JustifyRight'],
-            ['Link', 'Unlink'],
-            ['Image', 'Flash', 'SpecialChar'],
-            '/',
-            ['Format', 'TextColor'],
-            ['Maximize', 'ShowBlocks'],
-            ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'],
-            ['Undo', 'Redo', 'Find', 'Replace', 'SelectAll', 'RemoveFormat'],
-        ],
-        'width': 840,
-        'height': 300,
+        'toolbar': 'full',
         'toolbarCanCollapse': False,
         'autoParagraph': False,
         'protectedSource': ['.*'],  # allow all source code, doesn't control anything
@@ -128,6 +129,8 @@ CKEDITOR_CONFIGS = {
         'allowedContentRules': '/^(*[*]{*}(*))/i',
     },
 }
+CONTENT_TYPES = ['image']
+MAX_UPLOAD_SIZE = 5242880  # 5 MB
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -149,7 +152,7 @@ LANGUAGES = 'ru'
 
 TIME_ZONE = 'UTC'
 
-# USE_I18N = True
+USE_I18N = True
 
 USE_L10N = True
 
@@ -157,7 +160,7 @@ USE_TZ = True
 
 DEFAULT = False
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'files/static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'files/static')
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -165,16 +168,15 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'files/static'),
-)
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, 'files/static'),)
 STATIC_URL = '/static/'
 
 COMPRESS_PRECOMPILERS = (
     ('text/scss', 'sass --scss {infile} {outfile}'),
 )
 COMPRESS_ROOT = os.path.join(BASE_DIR, 'files/static')
-
+# COMPRESS_ENABLED = True
+# COMPRESS_OFFLINE = True
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'files/media')
 MEDIA_URL = '/media/'
@@ -199,3 +201,68 @@ SERVER_EMAIL = "seversait@yandex.ru"
 # META
 META_USE_TITLE_TAG = True
 
+# DJANGO-HOSTS
+ROOT_HOSTCONF = 'bp.hosts'
+DEFAULT_HOST = 'bp'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue'
+        }
+    },
+    'formatters': {
+        'main_formatter': {
+            'format': '%(levelname)s:%(name)s: %(message)s '
+                      '(%(asctime)s; %(filename)s:%(lineno)d)',
+            'datefmt': "%Y-%m-%d %H:%M:%S",
+        },
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'main_formatter',
+        },
+        'production_file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/main.log',
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 7,
+            'formatter': 'main_formatter',
+            'filters': ['require_debug_false'],
+        },
+        'debug_file': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/main_debug.log',
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 7,
+            'formatter': 'main_formatter',
+            'filters': ['require_debug_true'],
+        }
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins', 'console'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        '': {
+            'handlers': ['console', 'production_file', 'debug_file'],
+            'level': "DEBUG",
+        },
+    }
+}

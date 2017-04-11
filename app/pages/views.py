@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import random
 from django.views.generic import ListView, DetailView
-from django.http import Http404
+from django.http import Http404, request, HttpResponsePermanentRedirect
 
 from app.pages.models import Document, Regulations, Category
 from app.currency.models import Currency
@@ -10,7 +10,6 @@ from app.currency.models import Currency
 # Просмотр списка всех категорий нормативных документов
 class AllCategoryRegulationsListView(ListView):
     model = Category
-
     template_name = 'pages/Regulations_list.html'
     context_object_name = 'category_list'
     queryset = Category.get_published.all()
@@ -79,7 +78,15 @@ class RegulationsDetailView(DetailView):
 # Детальный просмотр документов (beta)
 class DocumentDetailView(DetailView):
     context_object_name = 'document'
-    queryset = Document.get_published.all()
+    # queryset = Document.get_published.all()
+
+    def get(self, request, *args, **kwargs):
+        if not request.path.endswith('/'):
+            return HttpResponsePermanentRedirect('%s/' % request.path)
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+
 
     def get_queryset(self):
         try:
@@ -88,10 +95,10 @@ class DocumentDetailView(DetailView):
             raise Http404
         return queryset
 
-    def get_context_data(self, **kwargs):
-        context = super(DocumentDetailView, self).get_context_data(**kwargs)
-        context['meta'] = self.get_object().as_meta(self.request)
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super(DocumentDetailView, self).get_context_data(**kwargs)
+    #     context['meta'] = self.get_object().as_meta(self.request)
+    #     return context
 
     def get_template_names(self):
         template_name = 'pages/Document-templates/Document' + self.object.templates + '.html'

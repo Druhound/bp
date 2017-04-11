@@ -1,8 +1,10 @@
+from __future__ import print_function
+
 from django.shortcuts import render
 from django.http import Http404, HttpResponsePermanentRedirect
 from django.views.generic import TemplateView
 
-from app.education.models import Education
+from app.education.models import Education, Locations
 
 
 class IndexView(TemplateView):
@@ -11,11 +13,16 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
+        context['locations'] = Locations.get_published.all()
         return context
 
 
 def education_view(request, slug):
     context = {}
+    # print(slug)
+    # if not slug.endswith('/'):
+    #     slug += '/'
+    # print(slug)
     try:
         page = Education.get_published.get(slug=slug)
     except:

@@ -61,7 +61,7 @@ class RegulationsAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('published', 'title', 'slug', 'templates', 'text', 'datetime')
+            'fields': ('published', 'image', 'title', 'slug', 'templates', 'text', 'datetime')
         }),
         ('SEO', {
             'classes': ('collapse',),
