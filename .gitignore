@@ -97,18 +97,12 @@ ENV/
 
 migrations
 /dump/
-Будет удалено .idea/
-Будет удалено .sass-cache/
-temp/
+.idea/*
+.sass-cache/*
+/temp/*
 logs/
-Будет удалено bp/whoosh_index/
-Будет удалено files/media/
-Будет удалено files/static/CACHE/
-Будет удалено app/ipgeo/
-Будет удалено app/reviews/
-Будет удалено bp/whoosh_index/MAIN_0wpemms4xlqk9v4o.seg
-Будет удалено bp/whoosh_index/MAIN_8pco04s1gq9gdbwg.seg
-Будет удалено bp/whoosh_index/MAIN_ao0x5n5br5m63v5n.seg
-Будет удалено bp/whoosh_index/MAIN_w3dhpjd7650zk4il.seg
-Будет удалено bp/whoosh_index/_MAIN_54.toc
-Будет удалено files/curr/
+bp/whoosh_index/
+files/media/
+files/static/CACHE/
+app/reviews/
+
