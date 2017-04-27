@@ -8,6 +8,7 @@ from ckeditor.fields import RichTextField
 from mptt.models import MPTTModel, TreeForeignKey
 import django_filters
 from meta.models import ModelMeta
+from django.contrib.postgres.fields import JSONField
 
 
 class PublishedManager(models.Manager):
@@ -105,6 +106,7 @@ class Regulations(Page):
     category_parent = models.ForeignKey('Category', related_name='REG', verbose_name='Категория нормативных документов', on_delete=models.CASCADE)
     file = models.FileField(verbose_name='Документ', upload_to='documents')
     image = models.ImageField(blank=True)
+    date = JSONField()
 
     def __unicode__(self):
         return self.title

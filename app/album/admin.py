@@ -10,21 +10,11 @@ class PhotoInLine(admin.StackedInline):
     model = Photo
     extra = 3
 
-    def thumb(self, object):
-        if object.image:
-            t = get_thumbnail(object.image, "100x100", crop='center', quality=90)
-            return u'<img src="%s" />' % t.url
-        else:
-            return u"None"
-
-    thumb.short_description = 'Превью'
-    thumb.allow_tags = True
-
 
 class AlbumAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Main', {
-            'fields': ('published', 'title', 'datetime')
+            'fields': ('published', 'title', 'datetime', 'date')
         }),
     )
     inlines = [PhotoInLine]

@@ -1,0 +1,13 @@
+{% block content %}
+<form class="attachForm" enctype="multipart/form-data">
+{% csrf_token %}
+    <input type="text" name="name">
+    <input type="text" name="telephone">
+    <input type="text" name="rab">
+    <input id="file" name="attach" type="file">
+    <button type="submit" id="submit" class="btn">Отправить заявку</button>
+
+    <div class="thx" style="display:none;">thx</div>
+    <div class="error" style="display:none;">error</div>
+</form>
+{% endblock %}

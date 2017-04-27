@@ -6,6 +6,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 from meta.models import ModelMeta
 from django_geoip.models import IpRange
 from django.db import models
+from django.core.urlresolvers import reverse
 
 DEFAULT_REGION = u'Другой регион'
 
@@ -60,11 +61,19 @@ class Education(ModelMeta, MPTTModel, PublishedModel):
 
     # -- Также рекомендуем
     module13 = RichTextField(blank=True, verbose_name='Также рекомендуем')
+    module14 = RichTextField(blank=True, verbose_name='Скидки')
+    module15 = RichTextField(blank=True, verbose_name='Преподаватели')
+    module16 = RichTextField(blank=True, verbose_name='Отзывы')
 
     # -- Цены программ
     price_msc = models.IntegerField(blank=True, verbose_name='Цена для Москвы')
     price_sbp = models.IntegerField(blank=True, verbose_name='Цена для Питера')
     price_oth = models.IntegerField(blank=True, verbose_name='Цена для других регионов')
+
+    price_msc2 = models.IntegerField(null=True, blank=True, verbose_name='Повторное обучение для Москвы')
+    price_sbp2 = models.IntegerField(null=True, blank=True, verbose_name='Повторное обучение для Питера')
+    price_oth2 = models.IntegerField(null=True, blank=True, verbose_name='Повторное обучение для других регионов')
+
     # end
 
     # Мета
@@ -85,6 +94,10 @@ class Education(ModelMeta, MPTTModel, PublishedModel):
         else:
             self._old_identifier = None
         self._old_parent = self.parent_id
+
+    def get_absolute_url(self):
+        return reverse('education:index') + self.slug
+
 
     _metadata = {
         'title': 'title_page',

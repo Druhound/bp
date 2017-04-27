@@ -41,66 +41,15 @@
     {{ currency.datetime }}
 
 
-    <div class="slider" style="height: 30px;">
-        <ul>
-            <li>
-                <div style="width:50%;display: inline-block">1</div>
-            </li>
-            <li>
-                <div style="width:50%;display: inline-block">2</div>
-            </li>
-
-            <li>
-                <div style="width:50%;display: inline-block">3</div>
-            </li>
-            <li>
-                <div style="width:50%;display: inline-block">4</div>
-            </li>
-
-            <li>
-                <div style="width:50%;display: inline-block">5</div>
-            </li>
-            <li>
-                <div style="width:50%;display: inline-block">6</div>
-            </li>
-
-            <li>
-                <div style="width:50%;display: inline-block">7</div>
-            </li>
-            <li>
-                <div style="width:50%;display: inline-block">8</div>
-            </li>
-            <li>
-                <div style="width:50%;display: inline-block">9</div>
-            </li>
-            <li>
-                <div style="width:50%;display: inline-block">10</div>
-            </li>
-        </ul>
-    </div>
-
-    <script src="http://malsup.github.com/jquery.form.js"></script>
-        <script>
-        $(document).ready(function() {
-            $('#form').ajaxForm(function() {
-                alert("Thank you for your comment!");
-            });
-        });
-    </script>
-
-<form id="form" class="feedback" action="/feedback/2ajax/" method="POST" enctype="multipart/form-data">
-
-    {% csrf_token %}
-
-    <p><label for="id_telephone">Telephone:</label> <input id="id_telephone" maxlength="30" name="telephone" type="text" required=""></p>
-    <p><label for="id_attach">Attach:</label> <input name="attach" type="file"></p>
-    <button>Send</button>
-</form>
 
 <div style="width: 100%;float: left;">
     {% thumbnail regulations.image "500x200" crop="center" quality=99 as im %}
-        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+        <a class="js-popup-image" href="/media/{{ regulations.image }}">
+            <img class="reviews__img" src="{{ im.url }}">
+        </a>
+
     {% endthumbnail %}
+    <h3>{{ regulations.image }}</h3>
     <h3>Заголовок: {{ regulations.title }}</h3>
     <p>Время: {{ regulations.datetime }}</p>
     <p>Категория: {{ regulations.category_parent }}</p>
@@ -150,9 +99,6 @@
         });
     </script>
 
-<div style="width:100%;float:left;position:relative;height: 350px;">
-    {% include "feedback_form/Callback_emailform.html" %}
-</div>
 
 
 {% endblock %}

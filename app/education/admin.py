@@ -36,7 +36,7 @@ class EducationAdmin(DjangoMpttAdmin, admin.ModelAdmin):
 
     fieldsets = (
         ('Основное', {
-            'fields': ('published', 'title', 'parent', 'identifier',  'templates', 'datetime'),
+            'fields': ('published', 'title', 'parent', 'identifier', 'templates', 'datetime'),
         }),
         ('Категория', {
             'classes': ('collapse',),
@@ -46,11 +46,15 @@ class EducationAdmin(DjangoMpttAdmin, admin.ModelAdmin):
             'classes': ('collapse',),
             'fields': ('module3', 'module4', 'module2', 'module5',
                        'module6', 'module7', 'module8', 'module9',
-                       'module10', 'module11', 'module12', 'module13')
+                       'module10', 'module11', 'module12', 'module13', 'module14', 'module15', 'module16')
         }),
         ('Цены', {
             'classes': ('inlines',),
-            'fields': (('price_msc', 'price_sbp', 'price_oth'), )
+            'fields': (('price_msc', 'price_sbp', 'price_oth'),)
+        }),
+        ('Цены для повторного обучения', {
+            'classes': ('inlines',),
+            'fields': (('price_msc2', 'price_sbp2', 'price_oth2'),)
         }),
         ('SEO', {
             'classes': ('collapse',),
@@ -63,10 +67,10 @@ class EducationAdmin(DjangoMpttAdmin, admin.ModelAdmin):
         if obj.identifier != obj._old_identifier or obj._old_parent != obj.parent:
             descendants = obj.get_root().get_descendants(include_self=True)
             for descendant in descendants:
-                descendant.slug = u'' + u'/'.join([doc.identifier for doc in descendant.get_ancestors(include_self=True)]) + u'/'
+                descendant.slug = u'' + u'/'.join(
+                    [doc.identifier for doc in descendant.get_ancestors(include_self=True)]) + u'/'
                 descendant.save()
 
 
 admin.site.register(Education, EducationAdmin)
 admin.site.register(Locations)
-
