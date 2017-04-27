@@ -96,11 +96,11 @@ ENV/
 migrations
 /dump/
 .idea/*
-temp/
-logs/
-bp/whoosh_index/
-files/curr/
-files/static/CACHE/
-app/reviews/
+/temp/
+/logs/
+/bp/whoosh_index/
+/files/curr/
+/files/static/CACHE/
+/app/reviews/
 
-/.sass-cache/**
+/.sass-cache/
