@@ -96,7 +96,6 @@ ENV/
 migrations
 /dump/
 .idea/*
-.sass-cache/
 temp/
 logs/
 bp/whoosh_index/
@@ -104,3 +103,4 @@ files/curr/
 files/static/CACHE/
 app/reviews/
 
+/.sass-cache/
