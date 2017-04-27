@@ -99,7 +99,7 @@ migrations
 /dump/
 .idea/*
 .sass-cache/*
-/temp/*
+temp/
 logs/
 bp/whoosh_index/
 files/media/
