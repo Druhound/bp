@@ -99,7 +99,7 @@ migrations
 /dump/
 Будет удалено .idea/
 Будет удалено .sass-cache/
-Будет удалено temp/
+temp/
 logs/
 Будет удалено bp/whoosh_index/
 Будет удалено files/media/
