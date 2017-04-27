@@ -16,14 +16,12 @@ urlpatterns = [
 
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^admin/', admin.site.urls),
-    # url(r'^grap/', views.view_func),
     url(r'^utm/$', TemplateView2.as_view(), name='utm'),
-    # url(r'^search/', include('haystack.urls', namespace='search')),
-    # # url(r'^normativnye_dokumenty/', include('app.pages.urls', namespace='pages')),
-    # url(r'^educations/', include('app.education.urls', namespace='education')),
-    # url(r'^feedback/', include('app.feedback_form.urls', namespace='form')),
+    url(r'^search/', include('haystack.urls')),
+    url(r'^feedback/', include('app.feedback_form.urls', namespace='form')),
+    url(r'^normativnye_dokumenty/', include('app.pages.urls', namespace='pages')),
+    url(r'^educations/', include('app.education.urls', namespace='education')),
     # url(r'^(?P<slug>.*)$', include('app.pages.urls')),
-
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += staticfiles_urlpatterns()
