@@ -91,16 +91,14 @@ ENV/
 # Rope project settings
 .ropeproject
 
-/files/media
-
 migrations
 /dump/
 .idea/*
 /temp/
 /logs/
 /bp/whoosh_index/
-/files/curr/
-/files/static/CACHE/
 /app/reviews/
 
 /.sass-cache/
+/files/
+/templates/
