@@ -103,4 +103,4 @@ files/curr/
 files/static/CACHE/
 app/reviews/
 
-/.sass-cache/
+/.sass-cache/**
