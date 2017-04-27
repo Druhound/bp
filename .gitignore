@@ -98,11 +98,11 @@ ENV/
 migrations
 /dump/
 .idea/*
-.sass-cache/*
+.sass-cache/
 temp/
 logs/
 bp/whoosh_index/
-files/media/
+files/curr/
 files/static/CACHE/
 app/reviews/
 
